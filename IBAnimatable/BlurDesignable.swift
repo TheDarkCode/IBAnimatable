@@ -29,12 +29,12 @@ public extension BlurDesignable where Self: UIView {
     }
     
     switch blurEffectStyle {
-    case .ExtraLight:
-      style = .ExtraLight
-    case .Light:
-      style = .Light
-    case .Dark:
-      style = .Dark
+    case .extraLight:
+      style = .extraLight
+    case .light:
+      style = .light
+    case .dark:
+      style = .dark
     }
     
     let blurEffect = UIBlurEffect(style: style!)
@@ -46,7 +46,7 @@ public extension BlurDesignable where Self: UIView {
       blurEffectView.layer.cornerRadius = layer.cornerRadius
       blurEffectView.clipsToBounds = true
     }
-    blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-    insertSubview(blurEffectView, atIndex: 0)
+    blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    insertSubview(blurEffectView, at: 0)
   }
 }
