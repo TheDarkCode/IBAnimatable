@@ -23,17 +23,17 @@ public protocol BorderDesignable {
   
 }
 
-struct BorderSides: OptionSetType {
+struct BorderSides: OptionSet {
   let rawValue: Int
   
   static let Unknown = BorderSides(rawValue: 0)
   
-  static let Top = BorderSides(rawValue: 1)
-  static let Right = BorderSides(rawValue: 1 << 1)
-  static let Bottom = BorderSides(rawValue: 1 << 2)
-  static let Left = BorderSides(rawValue: 1 << 3)
+  static let top = BorderSides(rawValue: 1)
+  static let right = BorderSides(rawValue: 1 << 1)
+  static let bottom = BorderSides(rawValue: 1 << 2)
+  static let left = BorderSides(rawValue: 1 << 3)
   
-  static let AllSides: BorderSides = [.Top, .Right, .Bottom, .Left]
+  static let AllSides: BorderSides = [.top, .right, .bottom, .left]
   
   init(rawValue: Int) {
     self.rawValue = rawValue
@@ -50,9 +50,9 @@ struct BorderSides: OptionSetType {
       return
     }
     
-    let sideElements = rawValue.characters.split(",")
+    let sideElements = rawValue.characters.split(separator: ",")
       .map(String.init)
-      .map { BorderSide(rawValue: $0.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) }
+      .map { BorderSide(rawValue: $0.trimmingCharacters(in: CharacterSet.whitespaces)) }
       .map { BorderSides(side:$0) }
     
     guard !sideElements.contains(.Unknown) else {
@@ -71,10 +71,10 @@ struct BorderSides: OptionSetType {
     }
     
     switch side {
-    case .Top: self = .Top
-    case .Right: self = .Right
-    case .Bottom: self = .Bottom
-    case .Left: self = .Left
+    case .top: self = .top
+    case .right: self = .right
+    case .bottom: self = .bottom
+    case .left: self = .left
     }
   }
 }
@@ -82,7 +82,7 @@ struct BorderSides: OptionSetType {
 public extension BorderDesignable where Self: UITextField {
   public func configBorder() {
     // set the borderSytle to `.None` to support single side of border
-    borderStyle = .None
+    borderStyle = .none
     commonConfigBorder()
   }
 }
@@ -110,18 +110,18 @@ private extension BorderDesignable where Self: UIView {
       let borderLayer = CAShapeLayer()
       borderLayer.name = "borderAllSides"
       borderLayer.path = mask.path
-      borderLayer.fillColor = UIColor.clearColor().CGColor
-      borderLayer.strokeColor = unwrappedBorderColor.CGColor
+      borderLayer.fillColor = UIColor.clear().cgColor
+      borderLayer.strokeColor = unwrappedBorderColor.cgColor
       borderLayer.lineWidth = borderWidth
       borderLayer.frame = bounds
-      layer.insertSublayer(borderLayer, atIndex: 0)
+      layer.insertSublayer(borderLayer, at: 0)
       return
     }
     
     let sides = BorderSides(rawValue: borderSide)
     
     if sides == .AllSides {
-      layer.borderColor = unwrappedBorderColor.CGColor
+      layer.borderColor = unwrappedBorderColor.cgColor
       layer.borderWidth = borderWidth
       return
     }
@@ -133,29 +133,29 @@ private extension BorderDesignable where Self: UIView {
     let borderPath = UIBezierPath()
     
     var lines:[(start: CGPoint, end: CGPoint)] = []
-    if sides.contains(.Top) {
+    if sides.contains(.top) {
       lines.append((start: .zero, end: CGPoint(x: bounds.size.width, y: 0)))
     }
-    if sides.contains(.Right) {
+    if sides.contains(.right) {
       lines.append((start: CGPoint(x: bounds.size.width, y: 0), end: CGPoint(x: bounds.size.width, y: bounds.size.height)))
     }
-    if sides.contains(.Bottom) {
+    if sides.contains(.bottom) {
       lines.append((start:CGPoint(x: 0, y: bounds.size.height), end: CGPoint(x: bounds.size.width, y: bounds.size.height)))
     }
-    if sides.contains(.Left) {
+    if sides.contains(.left) {
       lines.append((start: .zero, end: CGPoint(x: 0, y: bounds.size.height)))
     }
     
     for linePoints in lines {
-      borderPath.moveToPoint(linePoints.start)
-      borderPath.addLineToPoint(linePoints.end)
+      borderPath.move(to: linePoints.start)
+      borderPath.addLine(to: linePoints.end)
     }
     
-    border.path = borderPath.CGPath
-    border.fillColor = UIColor.clearColor().CGColor
-    border.strokeColor = unwrappedBorderColor.CGColor
+    border.path = borderPath.cgPath
+    border.fillColor = UIColor.clear().cgColor
+    border.strokeColor = unwrappedBorderColor.cgColor
     border.lineWidth = borderWidth
     border.frame = bounds
-    layer.insertSublayer(border, atIndex: 0)
+    layer.insertSublayer(border, at: 0)
   }
 }
