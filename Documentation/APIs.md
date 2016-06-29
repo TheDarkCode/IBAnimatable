@@ -4,6 +4,7 @@ To use `IBAnimatable`, we can drag and drop a UIKit element and connect it with 
 | UIKit elements | Animatable UI elements | Description |
 | ------------- |:-------------:| ----- |
 | UIView | AnimatableView | |
+| UIScrollView | AnimatableScrollView | |
 | UIBarButtonItem | AnimatableBarButtonItem | |
 | UIButton | AnimatableButton | |
 | UIButton | AnimatableCheckBox | Connect UIButton as AnimatableCheckBox to make CheckBox control |
@@ -17,6 +18,7 @@ To use `IBAnimatable`, we can drag and drop a UIKit element and connect it with 
 | UINavigationBar | DesignableNavigationBar | |
 | UIViewController | AnimatableViewController | |
 | UINavigationController | AnimatableNavigationController | |
+| UISlider | AnimatableSlider | |
 
 ### Designable protocols
 `IBAnimatable` provides a set of Designable protocols as below. Because of the power of protocol-oriented programming in Swift, we don't even have to use Animatable default UI elements e.g. `AnimatableView` to unlocked the power of `IBAnimatable`. We can conform to `IBAnimatable` protocols to use the default implementation in protocol extension to create other custom UI elements.
@@ -102,7 +104,8 @@ It is used in `AnimatableTextField` to add padding on either or both sides.
 #### `PlaceholderDesignable`
 | Property name | Data type | Description |
 | ------------- |:-------------:| ----- |
-| placeholderColor | Optional&lt;UIColor> | placeholder text color in `AnimatableTextField`. |
+| placeholderColor | Optional&lt;UIColor> | placeholder text color in `AnimatableTextField` and `AnimatableTextView`. |
+| placeholderText | Optional&lt;String> | placeholder text in `AnimatableTextView`. |
 
 #### `RootWindowDesignable`
 | Property name | Data type | Description |
