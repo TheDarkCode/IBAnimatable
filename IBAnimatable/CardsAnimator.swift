@@ -34,12 +34,12 @@ public class CardsAnimator: NSObject, AnimatedTransitioning {
 }
 
 extension CardsAnimator: UIViewControllerAnimatedTransitioning {
-  public func transitionDuration(_ transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-    return retrieveTransitionDuration(transitionContext)
+  public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    return getTransitionDuration(using: transitionContext)
   }
   
-  public func animateTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-    let (tempfromView, tempToView, tempContainerView) = retrieveViews(transitionContext)
+  public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    let (tempfromView, tempToView, tempContainerView) = getViews(using: transitionContext)
     guard let fromView = tempfromView, toView = tempToView, containerView = tempContainerView else {
       transitionContext.completeTransition(true)
       return
@@ -140,7 +140,7 @@ private extension CardsAnimator {
       var t1 = CATransform3DIdentity
       t1.m34 = 1.0 / -900
       t1 = CATransform3DScale(t1, 0.95, 0.95, 1)
-      t1 = CATransform3DRotate(t1, 15.0 * CGFloat(M_PI) / 180.0, 1, 0, 0)
+      t1 = CATransform3DRotate(t1, 15.0 * .pi / 180.0, 1, 0, 0)
       return t1
   }
 

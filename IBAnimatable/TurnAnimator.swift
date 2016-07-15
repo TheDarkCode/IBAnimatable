@@ -51,12 +51,12 @@ public class TurnAnimator: NSObject, AnimatedTransitioning {
 }
 
 extension TurnAnimator: UIViewControllerAnimatedTransitioning {
-  public func transitionDuration(_ transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-    return retrieveTransitionDuration(transitionContext)
+  public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    return getTransitionDuration(using: transitionContext)
   }
   
-  public func animateTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-    let (tempfromView, tempToView, tempContainerView) = retrieveViews(transitionContext)
+  public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    let (tempfromView, tempToView, tempContainerView) = getViews(using: transitionContext)
     guard let fromView = tempfromView, toView = tempToView, containerView = tempContainerView else {
       transitionContext.completeTransition(true)
       return
@@ -73,10 +73,10 @@ extension TurnAnimator: UIViewControllerAnimatedTransitioning {
 
   private func animateTurnTransition(_ fromView: UIView, toView: UIView, completion: AnimatableCompletion) {
     let factor = reverse ? 1.0 : -1.0
-    toView.layer.transform = rotate(factor * -M_PI_2)
+    toView.layer.transform = rotate(factor * -.pi * 2)
     UIView.animateKeyframes(withDuration: transitionDuration, delay: 0.0, options: .layoutSubviews, animations: {
       UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5) {
-            fromView.layer.transform = self.rotate(factor * M_PI_2)
+            fromView.layer.transform = self.rotate(factor * .pi * 2)
       }
 
       UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {

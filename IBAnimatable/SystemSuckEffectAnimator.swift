@@ -21,11 +21,11 @@ public class SystemSuckEffectAnimator: NSObject, AnimatedTransitioning {
 }
 
 extension SystemSuckEffectAnimator: UIViewControllerAnimatedTransitioning {
-  public func transitionDuration(_ transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-    return retrieveTransitionDuration(transitionContext)
+  public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    return getTransitionDuration(using: transitionContext)
   }
   
-  public func animateTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-    animateWithCATransition(transitionContext, type: SystemTransitionType.suckEffect, subtype: nil)
+  public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    animateWithCATransition(using: transitionContext, type: SystemTransitionType.suckEffect, subtype: nil)
   }
 }

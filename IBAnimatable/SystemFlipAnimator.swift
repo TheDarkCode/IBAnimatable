@@ -46,11 +46,11 @@ public class SystemFlipAnimator: NSObject, AnimatedTransitioning {
 }
 
 extension SystemFlipAnimator: UIViewControllerAnimatedTransitioning {
-  public func transitionDuration(_ transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-    return retrieveTransitionDuration(transitionContext)
+  public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    return getTransitionDuration(using: transitionContext)
   }
   
-  public func animateTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-    animateWithCATransition(transitionContext, type: SystemTransitionType.flip, subtype: fromDirection.CATransitionSubtype)
+  public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    animateWithCATransition(using: transitionContext, type: SystemTransitionType.flip, subtype: fromDirection.CATransitionSubtype)
   }
 }

@@ -37,12 +37,12 @@ public class NatGeoAnimator: NSObject, AnimatedTransitioning {
 }
 
 extension NatGeoAnimator: UIViewControllerAnimatedTransitioning {
-  public func transitionDuration(_ transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-    return retrieveTransitionDuration(transitionContext)
+  public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    return getTransitionDuration(using: transitionContext)
   }
   
-  public func animateTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-    let (tempfromView, tempToView, tempContainerView) = retrieveViews(transitionContext)
+  public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    let (tempfromView, tempToView, tempContainerView) = getViews(using: transitionContext)
     guard let fromView = tempfromView,
               toView = tempToView,
               containerView = tempContainerView else {
@@ -173,7 +173,7 @@ private extension NatGeoAnimator {
   }
 
   func radianFromDegree(_ degrees: Double) -> CGFloat {
-    return CGFloat((degrees / 180) * M_PI)
+    return CGFloat((degrees / 180) * .pi)
   }
 
   func animationDidFinish(_ transitionContext: UIViewControllerContextTransitioning, containerView: UIView, fromView: UIView, toView: UIView) {

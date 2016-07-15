@@ -97,10 +97,17 @@ import UIKit
   }
   
   // MARK: - MaskDesignable
-  @IBInspectable public var maskType: String? {
+  public var maskType: MaskType = .none {
     didSet {
       configMask()
       configBorder()
+    }
+  }
+  
+  /// The mask type used in Interface Builder. **Should not** use this property in code.
+  @IBInspectable var _maskType: String? {
+    didSet {
+      maskType = MaskType(string: _maskType)
     }
   }
   
@@ -147,7 +154,7 @@ import UIKit
   private func setup() {
     // No title for CheckBox
     setTitle("", for: UIControlState())
-    tintColor = UIColor.clear()
+    tintColor = .clear()
   }
   
   private func configInspectableProperties() {
